@@ -39,56 +39,64 @@ export default function Settings() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-3 md:px-0">
       {/* HEADER */}
-      <div>
-        <h2 className="text-4xl font-bold text-slate-800">Settings</h2>
-        <p className="text-slate-500 mt-1">
+      <div className="text-center md:text-left">
+        <h2 className="text-2xl md:text-4xl font-bold text-slate-800">
+          Settings
+        </h2>
+        <p className="text-slate-500 mt-1 text-sm md:text-base">
           View your account and system configuration
         </p>
       </div>
 
       {/* USER INFO */}
-      <div className="bg-white rounded-2xl shadow-lg p-6">
-        <h3 className="text-lg font-semibold mb-4">Account Information</h3>
+      <div className="bg-white rounded-2xl shadow-lg p-4 md:p-6">
+        <h3 className="text-base md:text-lg font-semibold mb-4">
+          Account Information
+        </h3>
 
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="p-4 bg-slate-50 rounded-xl">
-            <p className="text-sm text-slate-500">Username</p>
-            <p className="font-semibold">{user?.username}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+          <div className="p-3 md:p-4 bg-slate-50 rounded-xl">
+            <p className="text-xs md:text-sm text-slate-500">Username</p>
+            <p className="font-semibold text-sm md:text-base break-all">
+              {user?.username}
+            </p>
           </div>
 
-          <div className="p-4 bg-slate-50 rounded-xl">
-            <p className="text-sm text-slate-500">Role</p>
-            <p className="font-semibold">{user?.role}</p>
+          <div className="p-3 md:p-4 bg-slate-50 rounded-xl">
+            <p className="text-xs md:text-sm text-slate-500">Role</p>
+            <p className="font-semibold text-sm md:text-base">{user?.role}</p>
           </div>
         </div>
       </div>
 
       {/* PERMISSIONS VIEW ONLY */}
-      <div className="bg-white rounded-2xl shadow-lg p-6">
-        <h3 className="text-lg font-semibold mb-4">
+      <div className="bg-white rounded-2xl shadow-lg p-4 md:p-6">
+        <h3 className="text-base md:text-lg font-semibold mb-4">
           My Permissions (Read Only)
         </h3>
 
         {permissions ? (
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
             {Object.entries(permissionLabels).map(([key, label]) => (
               <div
                 key={key}
-                className="flex items-center justify-between bg-slate-50 p-4 rounded-xl"
+                className="flex items-center justify-between bg-slate-50 p-3 md:p-4 rounded-xl gap-3"
               >
-                <span className="font-medium text-slate-700">{label}</span>
+                <span className="font-medium text-slate-700 text-sm md:text-base">
+                  {label}
+                </span>
 
-                {/* DISABLED TOGGLE */}
+                {/* TOGGLE */}
                 <div
-                  className={`w-11 h-6 flex items-center rounded-full p-1 transition ${
+                  className={`w-10 md:w-11 h-5 md:h-6 flex items-center rounded-full p-1 transition ${
                     permissions[key] ? "bg-green-500" : "bg-slate-300"
                   }`}
                 >
                   <div
                     className={`w-4 h-4 bg-white rounded-full shadow transform transition ${
-                      permissions[key] ? "translate-x-5" : ""
+                      permissions[key] ? "translate-x-4 md:translate-x-5" : ""
                     }`}
                   />
                 </div>
@@ -96,15 +104,19 @@ export default function Settings() {
             ))}
           </div>
         ) : (
-          <p className="text-slate-500">Loading permissions...</p>
+          <p className="text-slate-500 text-sm md:text-base">
+            Loading permissions...
+          </p>
         )}
       </div>
 
       {/* SYSTEM SETTINGS */}
-      <div className="bg-white rounded-2xl shadow-lg p-6">
-        <h3 className="text-lg font-semibold mb-4">System Settings</h3>
+      <div className="bg-white rounded-2xl shadow-lg p-4 md:p-6">
+        <h3 className="text-base md:text-lg font-semibold mb-4">
+          System Settings
+        </h3>
 
-        <div className="space-y-3 text-sm text-slate-600">
+        <div className="space-y-2 md:space-y-3 text-xs md:text-sm text-slate-600">
           <p>• JWT Authentication enabled</p>
           <p>• Stateless session management</p>
           <p>• BCrypt password encryption</p>

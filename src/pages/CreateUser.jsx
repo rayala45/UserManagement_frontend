@@ -32,8 +32,6 @@ export default function CreateUser() {
       await api.post("/api/users/Admin/users", form);
 
       alert("User Created Successfully");
-
-      // RESET FORM AFTER SUCCESS
       setForm(initialForm);
     } catch (err) {
       console.error(err);
@@ -42,21 +40,25 @@ export default function CreateUser() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-lg p-8">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-slate-800">Create New User</h2>
-        <p className="text-slate-500 mt-2">
+    <div className="max-w-5xl mx-auto bg-white rounded-2xl md:rounded-3xl shadow-lg p-4 md:p-8">
+      {/* HEADER */}
+      <div className="mb-6 md:mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-slate-800">
+          Create New User
+        </h2>
+        <p className="text-sm md:text-base text-slate-500 mt-2">
           Add a new user/admin to the system
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-5">
+      {/* FORM GRID */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
         <input
           name="firstName"
           value={form.firstName}
           placeholder="First Name"
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         />
 
         <input
@@ -64,7 +66,7 @@ export default function CreateUser() {
           value={form.lastName}
           placeholder="Last Name"
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         />
 
         <input
@@ -72,7 +74,7 @@ export default function CreateUser() {
           value={form.username}
           placeholder="Username"
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         />
 
         <input
@@ -80,7 +82,7 @@ export default function CreateUser() {
           value={form.email}
           placeholder="Email"
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         />
 
         <input
@@ -88,7 +90,7 @@ export default function CreateUser() {
           value={form.phone}
           placeholder="Phone"
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         />
 
         <input
@@ -96,14 +98,14 @@ export default function CreateUser() {
           value={form.password}
           placeholder="Temporary Password"
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         />
 
         <select
           name="role"
           value={form.role}
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         >
           <option value="USER">USER</option>
           <option value="ADMIN">ADMIN</option>
@@ -114,7 +116,7 @@ export default function CreateUser() {
           value={form.department}
           placeholder="Department"
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         />
 
         <input
@@ -122,10 +124,11 @@ export default function CreateUser() {
           value={form.designation}
           placeholder="Designation"
           onChange={handleChange}
-          className="border rounded-xl px-4 py-3"
+          className="border rounded-xl px-4 py-3 text-sm md:text-base"
         />
 
-        <label className="flex items-center gap-3 text-slate-700">
+        {/* CHECKBOX FULL WIDTH ON MOBILE */}
+        <label className="flex items-center gap-3 text-slate-700 md:col-span-2">
           <input
             type="checkbox"
             name="active"
@@ -136,9 +139,10 @@ export default function CreateUser() {
         </label>
       </div>
 
+      {/* BUTTON */}
       <button
         onClick={handleSubmit}
-        className="w-full mt-8 bg-slate-900 text-white py-3 rounded-xl hover:bg-slate-800"
+        className="w-full mt-6 md:mt-8 bg-slate-900 text-white py-3 rounded-xl hover:bg-slate-800 active:scale-[0.98] transition"
       >
         Create User
       </button>

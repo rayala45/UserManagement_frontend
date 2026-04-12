@@ -12,18 +12,14 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      // 1. LOGIN API
       const res = await axios.post(
         "https://usermanagementsystem1-production.up.railway.app/auth/login",
         form,
       );
 
       const token = res.data.token;
-
-      // STORE TOKEN
       localStorage.setItem("token", token);
 
-      // 2. FETCH LOGGED IN USER
       const meRes = await axios.get(
         "https://usermanagementsystem1-production.up.railway.app/auth/me",
         {
@@ -35,19 +31,12 @@ export default function Login() {
 
       const user = meRes.data;
 
-      // extract permissions
       const permissions = user?.userPermissions;
-
-      // remove permissions from user object
       const { userPermissions, ...userWithoutPermissions } = user;
 
-      // store user without permissions
       localStorage.setItem("user", JSON.stringify(userWithoutPermissions));
-
-      // store permissions separately
       localStorage.setItem("permissions", JSON.stringify(permissions));
 
-      // ROLE BASED NAVIGATION
       if (user.role === "ADMIN") {
         navigate("/dashboard");
       } else {
@@ -60,41 +49,44 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-slate-100 px-4">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
+      {/* CARD */}
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 md:p-8">
         {/* HEADER */}
-        <h2 className="text-3xl font-bold mb-2 text-center text-slate-800">
+        <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center text-slate-800">
           Welcome Back
         </h2>
 
-        <p className="text-center text-slate-500 mb-6">
+        <p className="text-center text-sm md:text-base text-slate-500 mb-6">
           Login to continue to your account
         </p>
 
         {/* FORM */}
-        <input
-          className="w-full border border-slate-300 px-4 py-3 mb-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-300"
-          placeholder="Username"
-          onChange={(e) => setForm({ ...form, username: e.target.value })}
-        />
+        <div className="space-y-3">
+          <input
+            className="w-full border border-slate-300 px-4 py-3 rounded-xl text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-slate-300"
+            placeholder="Username"
+            onChange={(e) => setForm({ ...form, username: e.target.value })}
+          />
 
-        <input
-          type="password"
-          className="w-full border border-slate-300 px-4 py-3 mb-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-300"
-          placeholder="Password"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
+          <input
+            type="password"
+            className="w-full border border-slate-300 px-4 py-3 rounded-xl text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-slate-300"
+            placeholder="Password"
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+        </div>
 
-        {/* LOGIN BUTTON */}
+        {/* BUTTON */}
         <button
           onClick={handleLogin}
-          className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-xl font-semibold transition"
+          className="w-full mt-5 bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-xl font-semibold transition active:scale-[0.98]"
         >
           Login
         </button>
 
-        {/* REGISTER LINK */}
-        <p className="text-center text-sm text-slate-500 mt-5">
+        {/* REGISTER */}
+        <p className="text-center text-xs md:text-sm text-slate-500 mt-5">
           Don&apos;t have an account?{" "}
           <Link
             to="/register"

@@ -42,7 +42,6 @@ export default function Users() {
     }
   };
 
-  // DELETE USER
   const handleDelete = async (id) => {
     try {
       await api.delete(`/api/users/${id}`);
@@ -52,16 +51,15 @@ export default function Users() {
     }
   };
 
-  // UPDATE USER (placeholder)
   const handleUpdate = (id) => {
     alert(`Open update form for user ID: ${id}`);
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 px-2 md:px-0">
       {/* HEADER */}
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Users</h2>
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+        <h2 className="text-xl md:text-2xl font-bold">Users</h2>
 
         <input
           type="text"
@@ -71,43 +69,43 @@ export default function Users() {
             setPage(0);
             setSearch(e.target.value);
           }}
-          className="border px-3 py-2 rounded-lg"
+          className="border px-3 py-2 rounded-lg w-full md:w-64"
         />
       </div>
 
       {/* SORT */}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setSortBy("id")}
-          className="px-3 py-1 bg-slate-200 rounded"
+          className="px-3 py-1 bg-slate-200 rounded text-sm md:text-base"
         >
           Sort ID
         </button>
 
         <button
           onClick={() => setSortBy("username")}
-          className="px-3 py-1 bg-slate-200 rounded"
+          className="px-3 py-1 bg-slate-200 rounded text-sm md:text-base"
         >
           Sort Name
         </button>
 
         <button
           onClick={() => setSortBy("email")}
-          className="px-3 py-1 bg-slate-200 rounded"
+          className="px-3 py-1 bg-slate-200 rounded text-sm md:text-base"
         >
           Sort Email
         </button>
       </div>
 
       {/* TABLE */}
-      <div className="bg-white rounded-xl shadow p-4">
+      <div className="bg-white rounded-xl shadow p-2 md:p-4">
         {loading ? (
           <p className="text-center p-6">Loading users...</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full min-w-[600px] text-left border-collapse">
               <thead>
-                <tr className="border-b text-slate-500">
+                <tr className="border-b text-slate-500 text-sm md:text-base">
                   <th className="py-2">ID</th>
                   <th>Name</th>
                   <th>Email</th>
@@ -118,30 +116,30 @@ export default function Users() {
 
               <tbody>
                 {users.map((u) => (
-                  <tr key={u.id} className="border-b hover:bg-slate-50">
+                  <tr
+                    key={u.id}
+                    className="border-b hover:bg-slate-50 text-sm md:text-base"
+                  >
                     <td className="py-2">{u.id}</td>
                     <td>{u.username}</td>
-                    <td>{u.email}</td>
+                    <td className="break-all">{u.email}</td>
                     <td>{u.role}</td>
 
-                    {/* ACTIONS */}
                     <td className="text-center">
-                      <div className="flex justify-center gap-2">
-                        {/* EDIT BUTTON */}
+                      <div className="flex flex-col md:flex-row justify-center gap-1 md:gap-2">
                         {permissions.canEditUsers && (
                           <button
                             onClick={() => handleUpdate(u.id)}
-                            className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600"
+                            className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 w-full md:w-auto"
                           >
                             Edit
                           </button>
                         )}
 
-                        {/* DELETE BUTTON */}
                         {permissions.canDeleteUsers && (
                           <button
                             onClick={() => handleDelete(u.id)}
-                            className="px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600"
+                            className="px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600 w-full md:w-auto"
                           >
                             Delete
                           </button>
@@ -157,23 +155,23 @@ export default function Users() {
       </div>
 
       {/* PAGINATION */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-3">
         <button
           disabled={page === 0}
           onClick={() => setPage(page - 1)}
-          className="px-3 py-1 bg-slate-900 text-white rounded disabled:opacity-40"
+          className="px-3 py-1 bg-slate-900 text-white rounded disabled:opacity-40 w-full md:w-auto"
         >
           Prev
         </button>
 
-        <p>
+        <p className="text-sm md:text-base">
           Page {page + 1} of {totalPages}
         </p>
 
         <button
           disabled={page + 1 === totalPages}
           onClick={() => setPage(page + 1)}
-          className="px-3 py-1 bg-slate-900 text-white rounded disabled:opacity-40"
+          className="px-3 py-1 bg-slate-900 text-white rounded disabled:opacity-40 w-full md:w-auto"
         >
           Next
         </button>
