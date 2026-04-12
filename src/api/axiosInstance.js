@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8080",
+baseURL: "https://usermanagementsystem1-production.up.railway.app",
 });
 
 axiosInstance.interceptors.request.use((config) => {
