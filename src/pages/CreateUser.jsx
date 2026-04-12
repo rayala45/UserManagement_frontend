@@ -53,81 +53,37 @@ export default function CreateUser() {
 
       {/* FORM GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-        <input
-          name="firstName"
-          value={form.firstName}
-          placeholder="First Name"
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        />
+        {Object.keys(initialForm).map((key) => {
+          if (key === "role") {
+            return (
+              <select
+                key={key}
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                className="border rounded-xl px-4 py-3 text-sm md:text-base"
+              >
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+              </select>
+            );
+          }
 
-        <input
-          name="lastName"
-          value={form.lastName}
-          placeholder="Last Name"
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        />
+          if (key === "active") return null;
 
-        <input
-          name="username"
-          value={form.username}
-          placeholder="Username"
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        />
+          return (
+            <input
+              key={key}
+              name={key}
+              value={form[key]}
+              placeholder={key}
+              onChange={handleChange}
+              className="border rounded-xl px-4 py-3 text-sm md:text-base"
+            />
+          );
+        })}
 
-        <input
-          name="email"
-          value={form.email}
-          placeholder="Email"
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        />
-
-        <input
-          name="phone"
-          value={form.phone}
-          placeholder="Phone"
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        />
-
-        <input
-          name="password"
-          value={form.password}
-          placeholder="Temporary Password"
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        />
-
-        <select
-          name="role"
-          value={form.role}
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        >
-          <option value="USER">USER</option>
-          <option value="ADMIN">ADMIN</option>
-        </select>
-
-        <input
-          name="department"
-          value={form.department}
-          placeholder="Department"
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        />
-
-        <input
-          name="designation"
-          value={form.designation}
-          placeholder="Designation"
-          onChange={handleChange}
-          className="border rounded-xl px-4 py-3 text-sm md:text-base"
-        />
-
-        {/* CHECKBOX FULL WIDTH ON MOBILE */}
+        {/* CHECKBOX */}
         <label className="flex items-center gap-3 text-slate-700 md:col-span-2">
           <input
             type="checkbox"

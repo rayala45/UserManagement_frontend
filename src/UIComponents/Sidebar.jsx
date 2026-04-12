@@ -1,11 +1,14 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Shield } from "lucide-react";
+import { Shield, Menu, X } from "lucide-react";
+import { useState } from "react";
 
 export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -18,7 +21,7 @@ export default function Sidebar() {
       ? "bg-slate-800 text-white"
       : "text-slate-300 hover:bg-slate-800 hover:text-white";
 
-  return (
+  const SidebarContent = () => (
     <aside className="w-72 bg-slate-950 text-white min-h-screen flex flex-col border-r border-slate-800">
       {/* BRAND */}
       <div className="px-6 py-6 border-b border-slate-800">
@@ -31,7 +34,7 @@ export default function Sidebar() {
         </p>
       </div>
 
-      {/* NAVIGATION */}
+      {/* NAV */}
       <nav className="flex-1 px-4 py-6 space-y-8 overflow-y-auto">
         {/* MAIN */}
         <div>
@@ -42,6 +45,7 @@ export default function Sidebar() {
           <div className="space-y-2">
             <Link
               to="/profile"
+              onClick={() => setOpen(false)}
               className={`block px-4 py-3 rounded-xl transition ${isActive("/profile")}`}
             >
               Profile
@@ -49,6 +53,7 @@ export default function Sidebar() {
 
             <Link
               to={user?.role === "ADMIN" ? "/dashboard" : "/userdashboard"}
+              onClick={() => setOpen(false)}
               className={`block px-4 py-3 rounded-xl transition ${
                 isActive("/dashboard") || isActive("/userdashboard")
               }`}
@@ -67,6 +72,7 @@ export default function Sidebar() {
           <div className="space-y-2">
             <Link
               to="/users"
+              onClick={() => setOpen(false)}
               className={`block px-4 py-3 rounded-xl transition ${isActive("/users")}`}
             >
               Users
@@ -76,14 +82,15 @@ export default function Sidebar() {
               <>
                 <Link
                   to="/users/create"
+                  onClick={() => setOpen(false)}
                   className={`block px-4 py-3 rounded-xl transition ${isActive("/users/create")}`}
                 >
                   Create User
                 </Link>
 
-                {/* ✅ PERMISSIONS ADDED HERE */}
                 <Link
                   to="/permissions"
+                  onClick={() => setOpen(false)}
                   className={`flex items-center gap-2 px-4 py-3 rounded-xl transition ${isActive(
                     "/permissions",
                   )}`}
@@ -105,6 +112,7 @@ export default function Sidebar() {
           <div className="space-y-2">
             <Link
               to="/settings"
+              onClick={() => setOpen(false)}
               className={`block px-4 py-3 rounded-xl transition ${isActive("/settings")}`}
             >
               Settings
@@ -123,5 +131,44 @@ export default function Sidebar() {
         </button>
       </div>
     </aside>
+  );
+
+  return (
+    <>
+      {/* MOBILE TOP BAR */}
+      <div className="md:hidden flex items-center justify-between bg-slate-950 text-white px-4 py-3 border-b border-slate-800">
+        <h1 className="font-bold">UMS</h1>
+
+        <button onClick={() => setOpen(true)}>
+          <Menu />
+        </button>
+      </div>
+
+      {/* DESKTOP SIDEBAR */}
+      <div className="hidden md:block">
+        <SidebarContent />
+      </div>
+
+      {/* MOBILE OVERLAY SIDEBAR */}
+      {open && (
+        <div className="fixed inset-0 z-50 flex">
+          {/* BACKDROP */}
+          <div className="flex-1 bg-black/50" onClick={() => setOpen(false)} />
+
+          {/* SIDEBAR */}
+          <div className="w-72 bg-slate-950 h-full relative">
+            {/* CLOSE */}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-4 text-white"
+            >
+              <X />
+            </button>
+
+            <SidebarContent />
+          </div>
+        </div>
+      )}
+    </>
   );
 }

@@ -34,7 +34,7 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* STATS CARDS */}
+      {/* STATS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         <div className="bg-blue-500 text-white p-5 md:p-6 rounded-2xl shadow-lg">
           <p className="text-xs md:text-sm opacity-80">Total Users</p>
@@ -58,7 +58,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* TABLE CARD */}
+      {/* TABLE */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* HEADER */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 p-4 md:p-5 border-b">
@@ -93,7 +93,7 @@ export default function Dashboard() {
                 >
                   <td className="p-3 md:p-4">{u.id}</td>
                   <td className="font-medium">{u.username}</td>
-                  <td className="text-slate-600">{u.email}</td>
+                  <td className="text-slate-600 break-all">{u.email}</td>
                   <td>
                     <span className="px-2 md:px-3 py-1 text-xs rounded-full bg-slate-200">
                       {u.role}
