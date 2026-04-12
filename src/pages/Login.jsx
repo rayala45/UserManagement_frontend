@@ -13,7 +13,10 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       // 1. LOGIN API
-      const res = await axios.post("http://localhost:8080/auth/login", form);
+      const res = await axios.post(
+        "https://usermanagementsystem1-production.up.railway.app/auth/login",
+        form,
+      );
 
       const token = res.data.token;
 
@@ -21,11 +24,14 @@ export default function Login() {
       localStorage.setItem("token", token);
 
       // 2. FETCH LOGGED IN USER
-      const meRes = await axios.get("http://localhost:8080/auth/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const meRes = await axios.get(
+        "https://usermanagementsystem1-production.up.railway.app/auth/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       const user = meRes.data;
 

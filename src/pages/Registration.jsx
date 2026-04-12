@@ -28,31 +28,40 @@ export default function Register() {
 
     try {
       // 1. REGISTER USER
-      await axios.post("http://localhost:8080/api/users/save", {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        username: form.username,
-        email: form.email,
-        password: form.password,
-        role: "USER",
-      });
+      await axios.post(
+        "https://usermanagementsystem1-production.up.railway.app/api/users/save",
+        {
+          firstName: form.firstName,
+          lastName: form.lastName,
+          username: form.username,
+          email: form.email,
+          password: form.password,
+          role: "USER",
+        },
+      );
 
       // 2. AUTO LOGIN
-      const loginRes = await axios.post("http://localhost:8080/auth/login", {
-        username: form.username,
-        password: form.password,
-      });
+      const loginRes = await axios.post(
+        "https://usermanagementsystem1-production.up.railway.app/auth/login",
+        {
+          username: form.username,
+          password: form.password,
+        },
+      );
 
       const token = loginRes.data.token;
 
       localStorage.setItem("token", token);
 
       // 3. FETCH LOGGED IN USER
-      const meRes = await axios.get("http://localhost:8080/auth/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const meRes = await axios.get(
+        "https://usermanagementsystem1-production.up.railway.app/auth/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       const user = meRes.data;
 
