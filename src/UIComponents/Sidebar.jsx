@@ -22,31 +22,43 @@ export default function Sidebar() {
       : "text-slate-300 hover:bg-slate-800 hover:text-white";
 
   const SidebarContent = () => (
-    <aside className="w-72 bg-slate-950 text-white min-h-screen flex flex-col border-r border-slate-800">
+    <aside
+      className="
+        w-64 md:w-72
+        bg-slate-950
+        text-white
+        h-full
+        flex flex-col
+        border-r border-slate-800
+        overflow-hidden
+      "
+    >
       {/* BRAND */}
-      <div className="px-6 py-6 border-b border-slate-800">
-        <h1 className="text-2xl font-bold tracking-wide">
+      <div className="px-4 md:px-6 py-4 md:py-6 border-b border-slate-800">
+        <h1 className="text-lg md:text-2xl font-bold tracking-wide">
           UMS {user?.role === "ADMIN" && "Admin"}
         </h1>
 
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-xs md:text-sm text-slate-400 mt-1">
           Enterprise User Management
         </p>
       </div>
 
       {/* NAV */}
-      <nav className="flex-1 px-4 py-6 space-y-8 overflow-y-auto">
+      <nav className="flex-1 px-3 md:px-4 py-4 md:py-6 space-y-6 overflow-y-auto">
         {/* MAIN */}
         <div>
-          <p className="text-xs uppercase tracking-wider text-slate-500 px-3 mb-3">
+          <p className="text-[10px] md:text-xs uppercase tracking-wider text-slate-500 px-2 md:px-3 mb-2 md:mb-3">
             Main
           </p>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5 md:space-y-2">
             <Link
               to="/profile"
               onClick={() => setOpen(false)}
-              className={`block px-4 py-3 rounded-xl transition ${isActive("/profile")}`}
+              className={`block px-3 md:px-4 py-2 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl transition ${isActive(
+                "/profile",
+              )}`}
             >
               Profile
             </Link>
@@ -54,7 +66,7 @@ export default function Sidebar() {
             <Link
               to={user?.role === "ADMIN" ? "/dashboard" : "/userdashboard"}
               onClick={() => setOpen(false)}
-              className={`block px-4 py-3 rounded-xl transition ${
+              className={`block px-3 md:px-4 py-2 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl transition ${
                 isActive("/dashboard") || isActive("/userdashboard")
               }`}
             >
@@ -65,15 +77,17 @@ export default function Sidebar() {
 
         {/* USER MANAGEMENT */}
         <div>
-          <p className="text-xs uppercase tracking-wider text-slate-500 px-3 mb-3">
+          <p className="text-[10px] md:text-xs uppercase tracking-wider text-slate-500 px-2 md:px-3 mb-2 md:mb-3">
             User Management
           </p>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5 md:space-y-2">
             <Link
               to="/users"
               onClick={() => setOpen(false)}
-              className={`block px-4 py-3 rounded-xl transition ${isActive("/users")}`}
+              className={`block px-3 md:px-4 py-2 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl transition ${isActive(
+                "/users",
+              )}`}
             >
               Users
             </Link>
@@ -83,7 +97,9 @@ export default function Sidebar() {
                 <Link
                   to="/users/create"
                   onClick={() => setOpen(false)}
-                  className={`block px-4 py-3 rounded-xl transition ${isActive("/users/create")}`}
+                  className={`block px-3 md:px-4 py-2 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl transition ${isActive(
+                    "/users/create",
+                  )}`}
                 >
                   Create User
                 </Link>
@@ -91,11 +107,11 @@ export default function Sidebar() {
                 <Link
                   to="/permissions"
                   onClick={() => setOpen(false)}
-                  className={`flex items-center gap-2 px-4 py-3 rounded-xl transition ${isActive(
+                  className={`flex items-center gap-2 px-3 md:px-4 py-2 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl transition ${isActive(
                     "/permissions",
                   )}`}
                 >
-                  <Shield size={18} />
+                  <Shield size={16} />
                   Permissions
                 </Link>
               </>
@@ -105,15 +121,17 @@ export default function Sidebar() {
 
         {/* SYSTEM */}
         <div>
-          <p className="text-xs uppercase tracking-wider text-slate-500 px-3 mb-3">
+          <p className="text-[10px] md:text-xs uppercase tracking-wider text-slate-500 px-2 md:px-3 mb-2 md:mb-3">
             System
           </p>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5 md:space-y-2">
             <Link
               to="/settings"
               onClick={() => setOpen(false)}
-              className={`block px-4 py-3 rounded-xl transition ${isActive("/settings")}`}
+              className={`block px-3 md:px-4 py-2 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl transition ${isActive(
+                "/settings",
+              )}`}
             >
               Settings
             </Link>
@@ -122,10 +140,10 @@ export default function Sidebar() {
       </nav>
 
       {/* FOOTER */}
-      <div className="p-4 border-t border-slate-800">
+      <div className="p-3 md:p-4 border-t border-slate-800">
         <button
           onClick={handleLogout}
-          className="w-full bg-red-600 hover:bg-red-700 px-4 py-3 rounded-xl font-medium transition"
+          className="w-full bg-red-600 hover:bg-red-700 px-4 py-2.5 md:py-3 rounded-lg md:rounded-xl text-sm md:text-base font-medium transition"
         >
           Logout
         </button>
@@ -156,11 +174,10 @@ export default function Sidebar() {
           <div className="flex-1 bg-black/50" onClick={() => setOpen(false)} />
 
           {/* SIDEBAR */}
-          <div className="w-72 bg-slate-950 h-full relative">
-            {/* CLOSE */}
+          <div className="w-64 bg-slate-950 h-screen relative overflow-hidden">
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-white"
+              className="absolute top-4 right-4 text-white z-10"
             >
               <X />
             </button>
